@@ -6,7 +6,7 @@ export default function Document() {
 			<Head>
 				<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 			</Head>
-			<body>
+			<body className="flex w-full flex-col items-center">
 				<Main />
 				<NextScript />
 			</body>

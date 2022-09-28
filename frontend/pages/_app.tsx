@@ -1,6 +1,7 @@
 import { Session } from 'next-auth';
 import { SessionProvider } from 'next-auth/react';
 import type { AppProps } from 'next/app';
+import RootLayout from '../components/RootLayout';
 import '../styles/globals.css';
 
 function MyApp({
@@ -9,7 +10,9 @@ function MyApp({
 }: AppProps<Session>) {
 	return (
 		<SessionProvider session={session as Session}>
-			<Component {...pageProps} />
+			<RootLayout>
+				<Component {...pageProps} />
+			</RootLayout>
 		</SessionProvider>
 	);
 }
