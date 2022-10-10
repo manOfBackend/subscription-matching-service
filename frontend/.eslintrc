@@ -24,8 +24,10 @@
 		"react/react-in-jsx-scope": "off",
 		"camelcase": "error",
 		"spaced-comment": "error",
-		"quotes": ["error", "single"],
-		"no-duplicate-imports": "error"
+		"no-duplicate-imports": "error",
+		"prettier/prettier": "warn",
+		"arrow-body-style": "off",
+		"prefer-arrow-callback": "off"
 	},
 	"settings": {
 		"import/resolver": {
