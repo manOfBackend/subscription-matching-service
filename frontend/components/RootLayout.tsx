@@ -12,9 +12,15 @@ function RootLayout({ children }: PropsWithChildren<unknown>) {
 					</div>
 					<nav className="flex w-full items-center justify-center">
 						<ul className="flex gap-10 text-lg">
-							<li>홈</li>
-							<li>파티추가</li>
-							<li className='cursor-pointer' onClick={() => router.push('/add-party')}>MY 파티</li>
+							<li>
+								<button onClick={() => router.push('/')}>홈</button>
+							</li>
+							<li>
+								<button onClick={() => router.push('/add-party')}>
+									파티추가
+								</button>
+							</li>
+							<li>MY 파티</li>
 							<li>가이드</li>
 						</ul>
 					</nav>
@@ -22,7 +28,9 @@ function RootLayout({ children }: PropsWithChildren<unknown>) {
 						사용자 정보
 					</div>
 				</header>
-				<div className="flex h-full w-full justify-center bg-teal-100 px-20 pt-10">{children}</div>
+				<div className="flex h-full w-full justify-center bg-teal-100 px-20 pt-10">
+					{children}
+				</div>
 			</div>
 		</>
 	);
