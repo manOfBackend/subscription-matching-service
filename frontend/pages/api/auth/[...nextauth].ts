@@ -12,24 +12,8 @@ export default NextAuth({
 			clientSecret: process.env.KAKAO_CLIENT_SECRET,
 		}),
 	],
-	jwt: {
-		encode: async ({ secret, token }) => {
-			if (token && token.accessToken) {
-				token.accessToken = undefined;
-			}
-			if (token && token.refreshToken) {
-				token.refreshToken = undefined;
-			}
-			return jwt.sign(token as any, secret, { algorithm: 'HS256' });
-		},
-		decode: async ({ secret, token }) => {
-			return jwt.verify(token as string, secret, {
-				algorithms: ['HS256'],
-			}) as any;
-		},
-	},
 	pages: {
-		signIn: '/',
+		signIn: '/signin',
 	},
 	callbacks: {
 		async jwt({ token, user, account, profile, isNewUser }) {
