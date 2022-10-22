@@ -28,7 +28,7 @@ function RootLayout({ children }: PropsWithChildren<unknown>) {
 						사용자 정보
 					</div>
 				</header>
-				<div className="flex h-full w-full justify-center bg-teal-100 px-20 pt-10">
+				<div className="flex h-full w-full justify-center bg-gray-50 px-20 pt-10">
 					{children}
 				</div>
 			</div>

@@ -1,10 +1,11 @@
+import jwt from 'jsonwebtoken';
 import NextAuth from 'next-auth';
 import KakaoProvider from 'next-auth/providers/kakao';
-import jwt from 'jsonwebtoken';
+import { apiInstance } from '../../../utils/axios';
 
 export default NextAuth({
-	session: {
-		strategy: 'jwt',
+	jwt: {
+		maxAge: 60 * 60,
 	},
 	providers: [
 		KakaoProvider({
@@ -16,18 +17,31 @@ export default NextAuth({
 		signIn: '/signin',
 	},
 	callbacks: {
-		async jwt({ token, user, account, profile, isNewUser }) {
-			if (user) {
-				token.id = user.id;
+		async jwt({ token, user, account }) {
+			const secret = process.env.NEXTAUTH_SECRET;
+			if (secret && user) {
+				const signed = jwt.sign(JSON.stringify(token, null, 2), secret);
+				try {
+					await apiInstance.post(
+						'/api/v1/login/kakao',
+						{ email: user.email, kakaoId: user.id },
+						{
+							headers: { Authorization: `${signed}` },
+						},
+					);
+					token.id = user.id;
+					token.accessToken = account?.access_token;
+					token.refreshToken = account?.refresh_token;
+				} catch (e) {
+					console.log('실패', token, secret, user.email, user.id);
+				}
 			}
-			if (account) {
-				token.accessToken = account.access_token;
-				token.refreshToken = account.refresh_token;
-			}
-
 			return token;
 		},
 		async session({ session, token }) {
+			if (token?.id === null) {
+				session.expires = '';
+			}
 			return session;
 		},
 	},
