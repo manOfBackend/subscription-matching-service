@@ -7,10 +7,10 @@ export default async function handler(
 	res: NextApiResponse,
 ) {
 	const secret = process.env.NEXTAUTH_SECRET;
-	const token = await getToken({ req, secret, raw: true });
-
+	const token = await getToken({ req });
 	if (token && secret) {
-		res.send(token);
+		const signed = jwt.sign(JSON.stringify(token, null, 2), secret);
+		res.send(signed);
 	} else {
 		res.status(401);
 	}
